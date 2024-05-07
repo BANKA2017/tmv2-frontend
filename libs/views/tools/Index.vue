@@ -51,13 +51,9 @@ const linkList = [{
   name: "Twitter Media",
   description: "Download Image / Videos / Spaces audio"
 },{
-  link: "/i/tools/snowflake_tool",
+  link: "https://banka2017.github.io/twitter-monitor/apps/online_tools/snowflake.html",
   name: "SnowFlake Tool",
   description: "Tiny tool for twitter snowflake"
-},{
-    link: "https://gamealbum.nest.moe/",
-    name: "GameAlbum",
-    description: "View and download media send from NS/PS/Xbox"
 },{
     link: "https://archive-viewer.nest.moe/",
     name: "Archive viewer",
