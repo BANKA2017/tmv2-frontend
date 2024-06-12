@@ -126,7 +126,7 @@ export interface Entity {
   indices_end_backup?: number // for emoji
   indices_start_backup?: number // for emoji
   text: string
-  type: 'hashtag' | 'symbol' | 'url' | 'user_mention' | "emoji" | 'text' | '' //emoji and empty('') are for FullTextToHtml
+  type: 'hashtag' | 'symbol' | 'url' | 'user_mention' | 'timestamp' | "emoji" | 'text' | '' // timestamp is unused for twitter monitor now //emoji and empty('') are for FullTextToHtml
 }
 
 export interface Media {

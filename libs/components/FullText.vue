@@ -126,7 +126,7 @@ const contentObjectBuilder = () => {
   const displayRange = props.displayRange?.length ? props.displayRange : [0, 0]
 
   let nextRichText = []
-  const fe0f = String.fromCharCode(0xfe0f)
+  // const fe0f = String.fromCharCode(0xfe0f)
   let full_text_original_array = [...props.full_text_original?.replace(/ https:\/\/t.co\/[\w]+$/, '')]
   if (!props.rich_text_tags || props.rich_text_tags.length === 0) {
     nextRichText.push({from_index: 0, to_index: full_text_original_array.length, richtext_types: [], content: [], text: full_text_original_array.slice(0, full_text_original_array.length).join('')})
@@ -152,7 +152,12 @@ const contentObjectBuilder = () => {
   }
 
   for (const richItem of nextRichText) {
-    const filterEntities = props.entities?.filter(entity => (entity.indices_start >= richItem.from_index) && (entity.indices_end <= richItem.to_index))
+    let filterEntities = props.entities?.filter(entity => (entity.indices_start >= richItem.from_index) && (entity.indices_end <= richItem.to_index))
+    
+    // articles
+    if (/^https:\/\/t\.co\/[^\/]+$/g.test(props.full_text_original) && filterEntities.length === 1 && filterEntities[0].type === 'url' && (filterEntities[0].expanded_url.startsWith('http://x.com/i/article/') || filterEntities[0].expanded_url.startsWith('http://twitter.com/i/article/'))) {
+      filterEntities = []
+    }
     if (richItem.from_index < displayRange[0]) {
       state.replyNameList = filterEntities.filter(entity => entity.indices_start < displayRange[0] && entity.type === "user_mention").map(entity => entity.text)
     }
