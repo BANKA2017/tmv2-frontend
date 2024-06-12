@@ -155,7 +155,7 @@ const contentObjectBuilder = () => {
     let filterEntities = props.entities?.filter(entity => (entity.indices_start >= richItem.from_index) && (entity.indices_end <= richItem.to_index))
     
     // articles
-    if (/^https:\/\/t\.co\/[^\/]+$/g.test(props.full_text_original) && filterEntities.length === 1 && filterEntities[0].type === 'url' && (filterEntities[0].expanded_url.startsWith('http://x.com/i/article/') || filterEntities[0].expanded_url.startsWith('http://twitter.com/i/article/'))) {
+    if (!/^https:\/\/t\.co\/[^\/]+$/g.test(props.full_text_original) && filterEntities.length === 1 && filterEntities[0].type === 'url' && (filterEntities[0].expanded_url.startsWith('http://x.com/i/article/') || filterEntities[0].expanded_url.startsWith('http://twitter.com/i/article/'))) {
       filterEntities = []
     }
     if (richItem.from_index < displayRange[0]) {
