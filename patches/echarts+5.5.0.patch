@@ -1,0 +1,55 @@
+diff --git a/node_modules/echarts/lib/chart/bar/BarView.js b/node_modules/echarts/lib/chart/bar/BarView.js
+index ad07d5a0e7de4ed94b2922f7e5bd216999a8b616..404a9e9fec3214f06bc4c68cb8bd6ebbdb399fab 100644
+--- a/node_modules/echarts/lib/chart/bar/BarView.js
++++ b/node_modules/echarts/lib/chart/bar/BarView.js
+@@ -335,14 +335,15 @@ var BarView = /** @class */function (_super) {
+       this._isFirstFrame = false;
+     } else {
+       var orderMapping_1 = function (idx) {
+-        var el = data.getItemGraphicEl(idx);
+-        var shape = el && el.shape;
+-        return shape &&
++        //var el = data.getItemGraphicEl(idx);
++        //var shape = el && el.shape;
++        return data.get(data.mapDimension(realtimeSortCfg.otherAxis.dim), idx)
++        //return shape && // The result should be consistent with the initial sort by data value.
+         // The result should be consistent with the initial sort by data value.
+         // Do not support the case that both positive and negative exist.
+-        Math.abs(baseAxis.isHorizontal() ? shape.height : shape.width)
++        // Math.abs(baseAxis.isHorizontal() ? shape.height : shape.width)
+         // If data is NaN, shape.xxx may be NaN, so use || 0 here in case
+-        || 0;
++        // || 0;
+       };
+       this._onRendered = function () {
+         _this._updateSortWithinSameData(data, orderMapping_1, baseAxis, api);
+@@ -363,6 +364,12 @@ var BarView = /** @class */function (_super) {
+     });
+     info.sort(function (a, b) {
+       // If NaN, it will be treated as min val.
++      if (isNaN(a.mappedValue)) {
++        return 1
++      }
++      if (isNaN(b.mappedValue)) {
++        return -1
++      }
+       return b.mappedValue - a.mappedValue;
+     });
+     return {
+@@ -379,9 +386,14 @@ var BarView = /** @class */function (_super) {
+       var rawIdx = data.rawIndexOf(ordinalDataDim, scale.getRawOrdinalNumber(tickNum));
+       var value = rawIdx < 0
+       // If some tick have no bar, the tick will be treated as min.
+-      ? Number.MIN_VALUE
++      // ? Number.MIN_VALUE
+       // PENDING: if dataZoom on baseAxis exits, is it a performance issue?
+-      : orderMapping(data.indexOfRawIndex(rawIdx));
++      // : orderMapping(data.indexOfRawIndex(rawIdx));
++      ? -Number.MAX_VALUE // PENDING: if dataZoom on baseAxis exits, is it a performance issue?
++      :  orderMapping(data.indexOfRawIndex(rawIdx))
++      if (isNaN(value)) {
++        value = -Number.MAX_VALUE
++      }
+       if (value > lastValue) {
+         return true;
+       }

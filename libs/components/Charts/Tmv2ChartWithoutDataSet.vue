@@ -30,6 +30,7 @@ import {computed, PropType, reactive} from "vue";
 import XAxis = echarts.EChartOption.XAxis;
 import YAxis = echarts.EChartOption.YAxis;
 import Series = echarts.EChartOption.Series;
+import { cloneDeep } from "lodash-es";
 
 use([
   CanvasRenderer,
@@ -253,7 +254,7 @@ const legendSelected = computed(() => {
   return tmpNotSelectList
 })
 const computedOptions = computed(() => {
-  let tmpOptions = state.options
+  let tmpOptions = cloneDeep(state.options)
   if (props.title) {
     tmpOptions.title.text = props.title
   }

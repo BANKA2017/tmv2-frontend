@@ -3,6 +3,7 @@
   "version": "0.3.0",
   "private": true,
   "license": "MIT",
+  "type": "module",
   "scripts": {
     "dev": "yarn patch-package && vite -c apps/local/vite.config.js",
     "build": "yarn patch-package && vite build -c apps/local/vite.config.js",

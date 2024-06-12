@@ -6,13 +6,14 @@
 </template>
 
 <script>
-import * as echarts from 'echarts/core';
+import { use } from 'echarts/core';
 import { TitleComponent } from 'echarts/components';
 import { CanvasRenderer } from 'echarts/renderers';
 import 'echarts-wordcloud';
 import VChart from "vue-echarts";
+import { cloneDeep } from 'lodash-es';
 
-echarts.use([TitleComponent, CanvasRenderer]);
+use([TitleComponent, CanvasRenderer]);
 export default {
   name: "wordCloudChart",
   components: {
@@ -87,7 +88,7 @@ export default {
   }),
   computed: {
     computedOptions: function () {
-      let tmpOption = this.option
+      let tmpOption = cloneDeep(this.option)
       tmpOption.title.text = this.title
       tmpOption.title.subtext = this.subtitle
       tmpOption.series[0].data = this.data

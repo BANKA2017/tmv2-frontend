@@ -6,7 +6,7 @@
 </template>
 
 <script setup lang="ts">
-import * as echarts from 'echarts/core';
+import { use } from 'echarts/core';
 import {
   TitleComponent,
   //TooltipComponent,
@@ -17,7 +17,7 @@ import {
 import { BarChart } from 'echarts/charts';
 import { CanvasRenderer } from 'echarts/renderers';
 
-echarts.use([
+use([
   TitleComponent,
   //TooltipComponent,
   TimelineComponent,
@@ -165,7 +165,6 @@ const computedOptions = computed(() => {
   tmpOption.baseOption.yAxis[0].data = Object.keys(props.data[props.data?.length - 1]).filter(x => x !== 'date').map(name => props.labelMap[name] ? props.labelMap[name] : '')//去除 date
   tmpOption.options = tmpSeries
   //tmpOption.series.data = this.data
-  state.option = tmpOption
   return tmpOption
 })
 

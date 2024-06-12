@@ -6,7 +6,7 @@
 </template>
 
 <script>
-import * as echarts from 'echarts/core';
+import { use } from 'echarts/core';
 import {
   DatasetComponent,
   TitleComponent,
@@ -18,8 +18,9 @@ import { LineChart } from 'echarts/charts';
 import { LabelLayout, UniversalTransition } from 'echarts/features';
 import { CanvasRenderer } from 'echarts/renderers';
 import VChart from "vue-echarts";
+import { cloneDeep } from 'lodash-es';
 
-echarts.use([
+use([
   DatasetComponent,
   TitleComponent,
   TooltipComponent,
@@ -78,7 +79,7 @@ export default {
   }),
   computed: {
     computedOptions: function () {
-      let tmpOption = this.option
+      let tmpOption = cloneDeep(this.option)
       tmpOption.title.text = this.title
       //others set
       let tmpData = {

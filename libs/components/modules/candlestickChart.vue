@@ -23,6 +23,7 @@ import {
 } from "echarts/components";
 import VChart from "vue-echarts";
 import {useI18n} from "vue-i18n";
+import { cloneDeep } from "lodash-es";
 
 use([
   CanvasRenderer,
@@ -204,7 +205,7 @@ export default {
   }),
   computed: {
     computedOptions: function () {
-      let tmpOptions = this.options
+      let tmpOptions = cloneDeep(this.options)
       tmpOptions.legend.data[0] = this.t("candlestick_chart.chart.candle_sticks")
       tmpOptions.series[0].name = this.t("candlestick_chart.chart.candle_sticks")
       tmpOptions.xAxis.data = this.xAxisData

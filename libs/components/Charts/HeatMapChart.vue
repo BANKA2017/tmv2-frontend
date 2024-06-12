@@ -6,7 +6,7 @@
 </template>
 
 <script setup lang="ts">
-import * as echarts from 'echarts/core';
+import { use } from 'echarts/core';
 import {
   TitleComponent,
   CalendarComponent,
@@ -15,7 +15,7 @@ import {
 } from 'echarts/components';
 import { HeatmapChart } from 'echarts/charts';
 
-echarts.use([
+use([
   TitleComponent,
   CalendarComponent,
   TooltipComponent,
@@ -25,6 +25,7 @@ echarts.use([
 import VChart from "vue-echarts";
 import {computed, PropType, reactive} from "vue";
 import {CalendarComponentOption} from "echarts";
+import { cloneDeep } from 'lodash-es';
 
 const props = defineProps({
   data: {
@@ -72,7 +73,7 @@ const state = reactive<{
 })
 
 const computedOptions = computed(() => {
-  let tmpOption = state.option
+  let tmpOption = cloneDeep(state.option)
   //let tmpMax = 0, tmpMin = 10000
   const tmpSingleData = props.data?.length === 0 ? [0, 10000] : props.data?.map(singleData => singleData[1])
   const tmpMax = Math.max.apply(null, tmpSingleData)

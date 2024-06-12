@@ -367,7 +367,7 @@ export default {
       state.accountListFilter[project][group] = !state.accountListFilter[project][group]
     }
 
-    const init = (bytesReceived: number, chunks: ArrayLike<number>[]) => {
+    const init = (bytesReceived: number, chunks: Uint8Array[]) => {
       let chunksAll = new Uint8Array(bytesReceived);
       let position = 0;
       for(let chunk of chunks) {
@@ -633,22 +633,25 @@ export default {
       })
     }
 
+
     onMounted(() => {
-      fetch(store.getters.getBasePath + "/static/db/annual2021.json").then((response: Response) => {
+      fetch(store.getters.getBasePath + "/static/db/annual2021.json").then(async (response: Response) => {
         if (!response.body) {return}
         let reader = response.body.getReader()
         let bytesReceived = 0
-        let chunks: ArrayLike<number>[] = []
-        reader.read().then(async function processResult(result): Promise<any> {
-          if (result.done) {
-            init(bytesReceived, chunks)
-            return
+        let chunks: Uint8Array[] = []
+        for (;;) {
+          const result = await reader.read()
+          if (result.value) {
+            chunks.push(result.value)
+            bytesReceived += result.value.length
+            state.progress = Math.floor((bytesReceived / 5242672) * 100)//不要想太多, 这个数字只是文件大小已知而已
           }
-          chunks.push(result.value)
-          bytesReceived += result.value.length
-          state.progress = Math.floor((bytesReceived / 5242672) * 100)//不要想太多, 这个数字只是文件大小已知而已
-          return reader.read().then(processResult)
-        })
+          if (result.done) {
+            break
+          }
+        }
+        init(bytesReceived, chunks)
       }).catch(e => {
         Notice(e.toString(), 'error')
       })

@@ -5,8 +5,8 @@
         <div class="d-flex justify-content-between">
           <p class="text-truncate px-2 my-0" ><span class="fw-bold">{{spacesPlayer.displayName}}</span> · <span class="small">{{spacesPlayer.title}}</span></p>
           <div style="width: 5em;">
-            <btn class="btn btn-sm btn-outline-primary border-0 rounded-pill px-2 py-0" @click="switchPlayerDisplayStatus"><dash status="" width="1em" height="1em" /></btn>
-            <btn class="btn btn-sm btn-outline-danger border-0 rounded-pill px-2 py-0" @click="close"><x-lg status="" width="1em" height="1em" /></btn>
+            <button class="btn btn-sm btn-outline-primary border-0 rounded-pill px-2 py-0" @click="switchPlayerDisplayStatus"><dash status="" width="1em" height="1em" /></button>
+            <button class="btn btn-sm btn-outline-danger border-0 rounded-pill px-2 py-0" @click="close"><x-lg status="" width="1em" height="1em" /></button>
           </div>
         </div>
         <audio controls autoplay id="spaces-player" ></audio>

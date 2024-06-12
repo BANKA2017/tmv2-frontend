@@ -38,7 +38,7 @@ const TrendsAccount = () => import("../views/trends/trendsAccount.vue")
     component: Trends,
     name: 'trends',
     children: [
-      {path: '', component: TrendsMain, name: 'trends'},
+      {path: '', component: TrendsMain, name: 'trends-main'},
       {path: ':name', component: TrendsAccount, name: 'trends-name'}
     ]
   })

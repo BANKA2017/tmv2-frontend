@@ -6,7 +6,7 @@
 </template>
 
 <script setup lang="ts">
-import * as echarts from 'echarts/core';
+import { use } from 'echarts/core';
 import {TitleComponent, TitleComponentOption, TooltipComponentOption} from 'echarts/components';
 import { SunburstChart } from 'echarts/charts';
 import { CanvasRenderer } from 'echarts/renderers';
@@ -14,8 +14,9 @@ import VChart from "vue-echarts";
 import {computed, PropType, reactive} from "vue";
 import {sunBurstType} from "../../types/Content";
 import {SunburstSeriesOption} from "echarts";
+import { cloneDeep } from 'lodash-es';
 
-echarts.use([TitleComponent, SunburstChart, CanvasRenderer]);
+use([TitleComponent, SunburstChart, CanvasRenderer]);
 
 const props = defineProps({
   data: {
@@ -96,7 +97,7 @@ const state = reactive<{
 })
 
 const computedOptions = computed(() => {
-  let tmpOption = state.option
+  let tmpOption = cloneDeep(state.option)
   tmpOption.title.text = props.title
   tmpOption.title.subtext = props.subtitle
   tmpOption.series.data = props.data

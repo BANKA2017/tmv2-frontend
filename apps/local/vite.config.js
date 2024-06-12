@@ -1,5 +1,5 @@
 import {defineConfig} from 'vite'
-const { resolve } = require('path')
+import { resolve } from 'path'
 import vue from '@vitejs/plugin-vue'
 import VueI18nPlugin from '@intlify/unplugin-vue-i18n/vite'
 import AutoImport from 'unplugin-auto-import/vite'

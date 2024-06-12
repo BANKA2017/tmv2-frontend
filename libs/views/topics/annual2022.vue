@@ -353,7 +353,7 @@ const swapGroupStatus = (project: string, group: string) => {
   state.accountListFilter[project][group] = !state.accountListFilter[project][group]
 }
 
-const init = (bytesReceived: number, chunks: ArrayLike<number>[]) => {
+const init = (bytesReceived: number, chunks: Uint8Array[]) => {
   let chunksAll = new Uint8Array(bytesReceived);
   let position = 0;
   for(let chunk of chunks) {
@@ -629,21 +629,23 @@ const setupCharts = () => {
 }
 
 onMounted(() => {
-  fetch(store.getters.getBasePath + "/static/db/annual2022.json").then((response: Response) => {
+  fetch(store.getters.getBasePath + "/static/db/annual2022.json").then(async (response: Response) => {
     if (!response.body) {return}
     let reader = response.body.getReader()
     let bytesReceived = 0
-    let chunks: ArrayLike<number>[] = []
-    reader.read().then(async function processResult(result): Promise<any> {
-      if (result.done) {
+    let chunks: Uint8Array[] = []
+        for (;;) {
+          const result = await reader.read()
+          if (result.value) {
+            chunks.push(result.value)
+            bytesReceived += result.value.length
+            state.progress = Math.floor((bytesReceived / 5655954) * 100)//不要想太多, 这个数字只是文件大小已知而已
+          }
+          if (result.done) {
+            break
+          }
+        }
         init(bytesReceived, chunks)
-        return
-      }
-      chunks.push(result.value)
-      bytesReceived += result.value.length
-      state.progress = Math.floor((bytesReceived / 5655954) * 100)//不要想太多, 这个数字只是文件大小已知而已
-      return reader.read().then(processResult)
-    })
   }).catch(e => {
     Notice(e.toString(), 'error')
   })
