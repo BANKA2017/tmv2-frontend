@@ -5,45 +5,11 @@ const Api = () => import("../views/Api.vue")
 const BookMarks = () => import("../views/BookMarks.vue")
 const TimeLine = () => import("../views/TimeLine.vue")
 const Main = () => import('../views/Main.vue')
-//TODO update to TypeScript
-//const staffCandleStickPage = () => import("../views/topics/staffCandleStickPage.vue")
 const NotFound = () => import("../views/NotFound.vue")
 const Settings = () => import("../views/Settings.vue")
-const Tools = () => import("../views/tools/Index.vue")
-const Media = () => import("../views/tools/Media.vue")
-const SnowFlakeTool = () => import("../views/tools/SnowFlakeTool.vue")
-const Translator = () => import("../views/tools/Translator.vue")
-//const PhotoPreview = () => import('@/views/TO_DEL_PhotoPreview.vue')
 
 let routes: RouteRecordRaw[] = [
     { path: '/about', component: OnlineAbout, name: 'about'},
-    {
-        path: '/i/tools',
-        component: Tools,
-        name: 'tools',
-        children: [
-            {path: '', component: Tools, name: 'tool-main-page'},
-            {
-                path: 'media',
-                component: Media,
-                children: [
-                    {path: '', component: Media, name: 'media-downloader'},
-                    {path: ':tweet_id(\\d+)', component: Media, name: 'media-downloader-status'}
-                ]
-            },
-            {path: 'snowflake_tool', component: SnowFlakeTool, name: 'snowflake-tool'},
-            {
-                path: 'translator',
-                component: Translator,
-                name: 'translator',
-                children:[
-                    {path: '', component: Translator, name: 'translator-empty'},
-                    {path: ':name', component: Translator, name: 'translator-name'},
-                    {path: 'status/:status(\\d+)', component: Translator, name: 'translator-name-status'}
-                ]
-            }
-        ]
-    },
     { path: '/api', component: Api, name: 'api'},
     { path: '/i/bookmarks', component: BookMarks, name: 'bookmarks'},
     { path: '/settings', component: Settings, name: 'settings'},
