@@ -67,7 +67,7 @@ check more in `/libs/i18n/`, base language is **Chinese simplified（zh-hans）*
 - 繁體中文/正體中文 (zh-hant)
 - English (en) (Need help)
 - 日本語 (ja) (Need help)
-- 한국어 (ko) (Need help)
+- 한국어 (ko) (Thanks [@luke2327](https://github.com/luke2327))
 
 ## More
 
@@ -118,7 +118,6 @@ Demo: <https://tm.bangdream.fun>
 
 由于与完整版共用 `UserInfo` 模块，因此会为 `Tmv2ChartWithoutDataSet` 生成模块，但实际使用时并不会用到。
 
-
 Demo: <https://tm.nest.moe>
 
 ## 翻译
@@ -129,7 +128,7 @@ Demo: <https://tm.nest.moe>
 - 繁體中文/正體中文 (zh-hant)
 - English (en) (Need help)
 - 日本語 (ja) (Need help)
-- 한국어 (ko) (Need help)
+- 한국어 (ko) (感谢 [@luke2327](https://github.com/luke2327))
 
 ## 更多
 
